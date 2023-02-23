@@ -1,0 +1,6 @@
+name = input('Введите ваше имя:')
+password = input('Введите пароль: ')
+age = int(input('Введите ваш возраст: '))
+print(name)
+print(password)
+print(age)
