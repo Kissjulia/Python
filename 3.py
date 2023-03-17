@@ -1,56 +1,50 @@
 """
-3. Реализовать структуру данных «Товары». Она должна представлять собой список кортежей.
-Каждый кортеж хранит информацию об отдельном товаре.
-В кортеже должно быть два элемента — номер товара и словарь с параметрами
-(характеристиками товара: название, цена, количество, единица измерения).
-Структуру нужно сформировать программно, т.е. запрашивать все данные у пользователя.
+Задание 3.
 
-Пример готовой структуры:
-[
-(1, {“название”: “компьютер”, “цена”: 20000, “количество”: 5, “eд”: “шт.”}),
-(2, {“название”: “принтер”, “цена”: 6000, “количество”: 2, “eд”: “шт.”}),
-(3, {“название”: “сканер”, “цена”: 2000, “количество”: 7, “eд”: “шт.”})
-]
+Реализовать базовый класс Worker (работник),
+в котором определить публичные атрибуты name, surname, position (должность),
+и защищенный атрибут income (доход). Последний атрибут должен ссылаться
+на словарь, содержащий элементы: оклад и премия, например, {"wage": wage, "bonus": bonus}.
 
-Далее необходимо собрать аналитику о товарах. Реализовать словарь,
-в котором каждый ключ — характеристика товара, например название,
-а значение — список значений-характеристик, например список названий товаров.
+Создать класс Position (должность) на базе класса Worker. В классе Position реализовать публичные методы
+получения полного имени сотрудника (get_full_name) и дохода с учетом премии (get_total_income).
 
-Пример:
+Проверить работу примера на реальных данных (создать экземпляры класса Position, передать данные,
+проверить значения атрибутов, вызвать методы экземпляров).
 
-{
-“названия”: [“компьютер”, “принтер”, “сканер”],
-“цены”: [20000, 6000, 2000],
-“количества”: [5, 2, 7],
-“ед”: [“шт.”]
-}
+П.С. попытайтесь добить вывода информации о сотруднике также через перегрузку str
+str(self) - вызывается функциями str, print и format. Возвращает строковое представление объекта.
 """
-products = []
-for i in range(1, 4):
-    print(f"Заполняем информацию по {i}-му товару")
-    product_name = input("Название: ")
-    product_price = int(input("Цена: "))
-    product_count = int(input("Количество: "))
-    product_measure =  input("Единица измерения: ")
-    products.append((i, {'название': product_name, 'цена': product_price, 'количество': product_count, 'eд': product_measure}))
+class Worker:
+    name: str
+    surname: str
+    position: str
+    income_list = {30000: 5000, 40000: 7000, 50000: 8000,
+                   60000: 9000, 70000: 10000, 80000: 11000, 100000: 15000}
+    _income = income_list
 
-print(f"Исходный список товаров: \n{products}")
+    def __init__(self, name, surname, income, position) -> None:
+        self.name = name
+        self.surname = surname
+        self.income = income
+        self.position = position
 
-product_names = []
-product_prices = []
-product_counts = []
-product_measures = []
-for i in products:
-    product_names.append(i[1].get('название'))
-    product_prices.append(i[1].get('цена'))
-    product_counts.append(i[1].get('количество'))
-    product_measures.append(i[1].get('eд'))
 
-report = {
-    'название': list(set(product_names)),
-    'цена': list(set(product_prices)),
-    'количество': list(set(product_counts)),
-    'eд': list(set(product_measures))
-}
+class Position(Worker):
 
-print(f"Отчет по списку товаров: \n{report}")
+    def get_full_name(self):
+        return f"{self.name} {self.surname}"
+
+    def get_total_income(self, income):
+
+        return self.income_list.get(income) + income
+
+    def __str__(self) -> str:
+        return f"{self.name} {self.surname}, {self.position}: {self.income + self.income_list.get(self.income)}"
+
+
+ivanov_ivan = Position("Иван", "Иванов", 100000, "программист")
+
+
+print(ivanov_ivan.get_total_income(ivanov_ivan.income))
+print(ivanov_ivan)
