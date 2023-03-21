@@ -1,31 +1,18 @@
-"""
-Задание 2.
+# Создать текстовый файл (не программно), сохранить в нем несколько строк, выполнить
+# подсчет количества строк, количества слов в каждой строке.
 
-Реализовать класс Road (дорога), в котором определить защищенные атрибуты:
-length (длина в метрах), width (ширина в метрах).
-
-Значения данных атрибутов должны передаваться при создании экземпляра класса.
-
-Реализовать публичный метод расчета массы асфальта, необходимого для покрытия
-всего дорожного полотна.
-
-Использовать формулу: длина * ширина * масса асфальта для покрытия одного кв
-метра дороги асфальтом, толщиной в 1 см * число м толщины полотна.
-Массу и толщину сделать публичными атрибутами.
-Проверить работу метода.
-
-Например: 20м*5000м*25кг*0.05м = 125000 кг = 125 т
-"""
-
-class Road:
-
-    def __init__(self, length, width) -> None:
-        self._length = length
-        self._width = width
-
-    def AsphaltMass(self):
-        return f"{self._length * self._width * 25 * 0.05 / 1000} т"
-
-
-road = Road(6000, 20)
-print(road.AsphaltMass())
+my_file = open('file_2.txt', 'r')
+content = my_file.read()
+print(f'Содержимое файла: \n {content}')
+my_file = open('file_2.txt', 'r')
+content = my_file.readlines()
+print(f'Количество строк в файле - {len(content)}')
+my_file = open('file_2.txt', 'r')
+content = my_file.readlines()
+for i in range(len(content)):
+    print(f'Количество символов {i + 1}-ой строки {len(content[i])}')
+my_file = open('file_2.txt', 'r')
+content = my_file.read()
+content = content.split()
+print(f'Общее количество слов - {len(content)}')
+my_file.close()
